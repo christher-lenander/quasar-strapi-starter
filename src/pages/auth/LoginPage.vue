@@ -6,20 +6,46 @@ import { Notify } from 'quasar';
 import { strapi } from 'src/boot/strapi';
 import { StrapiError } from 'strapi-sdk-js';
 
+import { useVuelidate } from '@vuelidate/core';
+import { required } from '@vuelidate/validators';
+
 const router = useRouter();
 
-const user = reactive({
+const state = reactive({
   email: '',
   password: '',
 });
 
+const rules = {
+  email: { required },
+  password: { required },
+};
+
+const v$ = useVuelidate(rules, state);
+
 const login = async () => {
+  const isValid = await v$.value.$validate();
+
+  console.log('test', isValid);
+
+  if (!isValid) {
+    Notify.create({
+      message: 'Please fill in all fields',
+      color: 'negative',
+      position: 'top',
+    });
+    return;
+  }
+
   try {
     await strapi.login({
-      identifier: user.email,
-      password: user.password,
+      identifier: state.email,
+      password: state.password,
     });
-    router.push({ name: 'dashboard' });
+
+    v$.value.$reset();
+
+    router.push({ name: 'member-dashboard' });
   } catch (e) {
     const { error } = e as StrapiError;
     Notify.create({
@@ -43,15 +69,18 @@ const login = async () => {
             <p class="text-weight-bolder text-grey">Login to your account</p>
           </q-card-section>
           <q-card-section>
-            <q-form class="q-gutter-md" @submit.prevent="login()">
+            <div class="q-gutter-md">
               <q-input
                 dense
+                hide-bottom-space
                 square
                 filled
-                clearable
-                v-model="user.email"
+                v-model="state.email"
                 type="email"
                 label="Email"
+                @focus="v$.email.$reset()"
+                @blur="v$.email.$touch()"
+                :error="v$.email.$error"
               >
                 <template v-slot:prepend>
                   <q-icon name="email" />
@@ -59,18 +88,21 @@ const login = async () => {
               </q-input>
               <q-input
                 dense
+                hide-bottom-space
                 square
                 filled
-                clearable
-                v-model="user.password"
+                v-model="state.password"
                 type="password"
                 label="Password"
+                @focus="v$.password.$reset()"
+                @blur="v$.password.$touch()"
+                :error="v$.password.$error"
               >
                 <template v-slot:prepend>
                   <q-icon name="lock" />
                 </template>
               </q-input>
-            </q-form>
+            </div>
           </q-card-section>
           <q-card-actions>
             <div class="row full-width">
@@ -81,7 +113,7 @@ const login = async () => {
                   flat
                   class="full-width text-white bg-green-7"
                   label="Sign In"
-                  type="submit"
+                  @click="login()"
                 />
               </div>
               <div class="col-6">

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { reactive } from 'vue';
 
 import { useRouter } from 'vue-router';
 import { Notify } from 'quasar';
@@ -7,17 +7,41 @@ import { Notify } from 'quasar';
 import { strapi } from 'src/boot/strapi';
 import { StrapiError } from 'strapi-sdk-js';
 
+import { useVuelidate } from '@vuelidate/core';
+import { required } from '@vuelidate/validators';
+
 const router = useRouter();
 
-const email = ref('');
-const password = ref('');
+const state = reactive({
+  email: '',
+  password: '',
+});
+
+const rules = {
+  email: { required },
+  password: { required },
+};
+
+const v$ = useVuelidate(rules, state);
 
 const register = async () => {
+  const isValid = await v$.value.$validate();
+
+  if (!isValid) {
+    Notify.create({
+      message: 'Please fill in all fields',
+      color: 'negative',
+      position: 'top',
+    });
+
+    return;
+  }
+
   try {
     await strapi.register({
-      username: email.value,
-      email: email.value,
-      password: password.value,
+      username: state.email,
+      email: state.email,
+      password: state.password,
     });
 
     try {
@@ -25,7 +49,8 @@ const register = async () => {
         user: strapi.user?.id,
       });
 
-      router.push({ name: 'home' });
+      v$.value.$reset();
+      router.push({ name: 'member-dashboard' });
     } catch (e) {
       const { error } = e as StrapiError;
       Notify.create({
@@ -66,8 +91,11 @@ const register = async () => {
                 dense
                 square
                 filled
-                clearable
-                v-model="email"
+                hide-bottom-space
+                @focus="v$.email.$reset()"
+                @blur="v$.email.$touch()"
+                :error="v$.email.$error"
+                v-model="state.email"
                 type="email"
                 label="Email"
               >
@@ -79,8 +107,11 @@ const register = async () => {
                 dense
                 square
                 filled
-                clearable
-                v-model="password"
+                hide-bottom-space
+                @focus="v$.password.$reset()"
+                @blur="v$.password.$touch()"
+                :error="v$.password.$error"
+                v-model="state.password"
                 type="password"
                 label="Password"
               >
