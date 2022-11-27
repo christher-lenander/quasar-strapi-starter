@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { reactive } from 'vue';
 
 import { useRouter } from 'vue-router';
 import { Notify } from 'quasar';
@@ -8,14 +8,16 @@ import { StrapiError } from 'strapi-sdk-js';
 
 const router = useRouter();
 
-const email = ref('');
-const password = ref('');
+const user = reactive({
+  email: '',
+  password: '',
+});
 
 const login = async () => {
   try {
     await strapi.login({
-      identifier: email.value,
-      password: password.value,
+      identifier: user.email,
+      password: user.password,
     });
     router.push({ name: 'dashboard' });
   } catch (e) {
@@ -41,13 +43,13 @@ const login = async () => {
             <p class="text-weight-bolder text-grey">Login to your account</p>
           </q-card-section>
           <q-card-section>
-            <q-form class="q-gutter-md">
+            <q-form class="q-gutter-md" @submit.prevent="login()">
               <q-input
                 dense
                 square
                 filled
                 clearable
-                v-model="email"
+                v-model="user.email"
                 type="email"
                 label="Email"
               >
@@ -60,7 +62,7 @@ const login = async () => {
                 square
                 filled
                 clearable
-                v-model="password"
+                v-model="user.password"
                 type="password"
                 label="Password"
               >
@@ -79,7 +81,7 @@ const login = async () => {
                   flat
                   class="full-width text-white bg-green-7"
                   label="Sign In"
-                  @click="login"
+                  type="submit"
                 />
               </div>
               <div class="col-6">
