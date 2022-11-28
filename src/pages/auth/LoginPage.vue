@@ -62,11 +62,12 @@ const login = async () => {
   <q-page
     class="window-height window-width row justify-center items-center bg-grey-2"
   >
+    {{ strapi.getToken() }}
     <div class="column">
       <div class="row">
-        <q-card class="q-pa-md q-ma-none no-shadow" style="width: 320px">
+        <q-card square class="q-pa-md q-ma-none no-shadow" style="width: 320px">
           <q-card-section class="q-mt-xl q-mb-md">
-            <p class="text-weight-bolder text-grey">Login to your account</p>
+            <p class="text-weight-bolder text-grey-6">Login to your account</p>
           </q-card-section>
           <q-card-section>
             <div class="q-gutter-md">
@@ -111,7 +112,7 @@ const login = async () => {
                   rounded
                   size="md"
                   flat
-                  class="full-width text-white bg-green-7"
+                  class="full-width text-white bg-custom-dark-blue"
                   label="Sign In"
                   @click="login()"
                 />
@@ -119,10 +120,16 @@ const login = async () => {
               <div class="col-6">
                 <div class="text-no-wrap text-caption text-right">
                   <router-link
-                    :to="{ name: 'sign-up' }"
+                    :to="{ name: 'create-account' }"
                     style="text-decoration: none"
                     class="text-grey-6 text-caption"
-                    >Sign up</router-link
+                    >Create account</router-link
+                  ><br />
+                  <router-link
+                    :to="{ name: 'forgot-password' }"
+                    style="text-decoration: none"
+                    class="text-grey-6 text-caption"
+                    >Forgot password</router-link
                   >
                 </div>
               </div>

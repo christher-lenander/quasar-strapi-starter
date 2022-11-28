@@ -42,9 +42,9 @@ const resetPassword = async () => {
   >
     <div class="column">
       <div class="row">
-        <q-card class="q-pa-md q-ma-none no-shadow" style="width: 320px">
+        <q-card square class="q-pa-md q-ma-none no-shadow" style="width: 320px">
           <q-card-section class="q-mt-xl q-mb-md">
-            <p class="text-weight-bolder text-grey">Reset your password</p>
+            <p class="text-weight-bolder text-grey-6">Reset password</p>
           </q-card-section>
           <q-card-section>
             <q-form class="q-gutter-md">
@@ -83,20 +83,10 @@ const resetPassword = async () => {
                   rounded
                   flat
                   size="md"
-                  class="full-width text-white bg-green-7"
+                  class="full-width text-white bg-custom-dark-blue"
                   label="Submit"
                   @click="resetPassword"
                 />
-              </div>
-              <div class="col-6">
-                <div class="text-no-wrap text-grey text-caption text-right">
-                  <router-link
-                    :to="{ name: 'login' }"
-                    style="text-decoration: none"
-                    class="text-grey-6 text-caption"
-                    >Sign in</router-link
-                  >
-                </div>
               </div>
             </div>
           </q-card-actions>

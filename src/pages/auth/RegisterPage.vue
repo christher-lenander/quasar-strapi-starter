@@ -61,13 +61,9 @@ const register = async () => {
   >
     <div class="column">
       <div class="row">
-        <q-card
-          squarex
-          class="q-pa-md q-ma-none no-shadow"
-          style="width: 320px"
-        >
+        <q-card square class="q-pa-md q-ma-none no-shadow" style="width: 320px">
           <q-card-section class="q-mt-xl q-mb-md">
-            <p class="text-weight-bolder text-grey">Create new account</p>
+            <p class="text-weight-bolder text-grey-6">Create new account</p>
           </q-card-section>
           <q-card-section>
             <div class="q-gutter-md">
@@ -112,8 +108,8 @@ const register = async () => {
                   rounded
                   flat
                   size="md"
-                  class="full-width text-white bg-green-7"
-                  label="Sign up"
+                  class="full-width text-white bg-custom-dark-blue"
+                  label="Sign Up"
                   @click="register"
                 />
               </div>
@@ -124,6 +120,12 @@ const register = async () => {
                     style="text-decoration: none"
                     class="text-grey-6 text-caption"
                     >Sign in</router-link
+                  ><br />
+                  <router-link
+                    :to="{ name: 'forgot-password' }"
+                    style="text-decoration: none"
+                    class="text-grey-6 text-caption"
+                    >Forgot password</router-link
                   >
                 </div>
               </div>
