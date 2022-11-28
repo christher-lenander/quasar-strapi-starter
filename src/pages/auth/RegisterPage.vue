@@ -43,22 +43,6 @@ const register = async () => {
       email: state.email,
       password: state.password,
     });
-
-    try {
-      await strapi.create('user-profiles', {
-        user: strapi.user?.id,
-      });
-
-      v$.value.$reset();
-      router.push({ name: 'member-dashboard' });
-    } catch (e) {
-      const { error } = e as StrapiError;
-      Notify.create({
-        message: e.message || error.message,
-        color: 'negative',
-        position: 'top',
-      });
-    }
   } catch (e) {
     const { error } = e as StrapiError;
     Notify.create({
@@ -86,7 +70,7 @@ const register = async () => {
             <p class="text-weight-bolder text-grey">Create new account</p>
           </q-card-section>
           <q-card-section>
-            <q-form class="q-gutter-md">
+            <div class="q-gutter-md">
               <q-input
                 dense
                 square
@@ -119,7 +103,7 @@ const register = async () => {
                   <q-icon name="lock" />
                 </template>
               </q-input>
-            </q-form>
+            </div>
           </q-card-section>
           <q-card-actions>
             <div class="row full-width">
@@ -130,7 +114,7 @@ const register = async () => {
                   size="md"
                   class="full-width text-white bg-green-7"
                   label="Sign up"
-                  @click="register()"
+                  @click="register"
                 />
               </div>
               <div class="col-6">
