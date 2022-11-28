@@ -43,6 +43,7 @@ const register = async () => {
       email: state.email,
       password: state.password,
     });
+    router.push({ name: 'member-dashboard' });
   } catch (e) {
     const { error } = e as StrapiError;
     Notify.create({
