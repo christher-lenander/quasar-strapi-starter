@@ -8,6 +8,14 @@ const logout = () => {
   strapi.logout();
   router.push({ name: 'login' });
 };
+
+const notImplemented = () => {
+  Notify.create({
+    message: 'Not implemented yet',
+    color: 'warning',
+    position: 'top',
+  });
+};
 </script>
 <template>
   <q-page
@@ -28,6 +36,7 @@ const logout = () => {
                   flat
                   class="full-width text-white bg-custom-dark-blue"
                   label="Edit Username and Email"
+                  @click="notImplemented"
                 />
                 <q-btn
                   rounded
@@ -35,6 +44,7 @@ const logout = () => {
                   flat
                   class="full-width text-white bg-custom-dark-blue"
                   label="Change Password"
+                  @click="notImplemented"
                 />
                 <q-btn
                   rounded
