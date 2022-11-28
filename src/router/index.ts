@@ -43,21 +43,20 @@ export default route(function (/* { store, ssrContext } */) {
       'reset-password',
     ];
 
-    if (to.matched.some((record) => record.meta.requiresAuth)) {
-      if (!strapi.getToken()) {
-        next({
-          path: '/login',
-          query: { redirect: to.fullPath },
-        });
-      } else {
-        next();
-      }
+    if (strapi.getToken() && publicPages.includes(to.name as string)) {
+      next({ name: 'member-dashboard' });
+    }
+
+    if (
+      to.matched.some((record) => record.meta.requiresAuth) &&
+      !strapi.getToken()
+    ) {
+      next({
+        name: 'login',
+        query: { redirect: to.fullPath },
+      });
     } else {
-      if (publicPages.includes(to.name as string)) {
-        next({ name: from.name as string });
-      } else {
-        next();
-      }
+      next();
     }
   });
 

@@ -57,7 +57,7 @@ const register = async () => {
 
 <template>
   <q-page
-    class="window-height window-width row justify-center items-center bg-grey-2"
+    class="window-height window-width row justify-center items-center bg-grey-3"
   >
     <div class="column">
       <div class="row">

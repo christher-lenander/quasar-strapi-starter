@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { reactive } from 'vue';
 
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import { Notify } from 'quasar';
 import { strapi } from 'src/boot/strapi';
 import { StrapiError } from 'strapi-sdk-js';
@@ -10,6 +10,7 @@ import { useVuelidate } from '@vuelidate/core';
 import { required } from '@vuelidate/validators';
 
 const router = useRouter();
+const route = useRoute();
 
 const state = reactive({
   email: '',
@@ -45,7 +46,7 @@ const login = async () => {
 
     v$.value.$reset();
 
-    router.push({ name: 'member-dashboard' });
+    router.push((route.query.redirect as string) || '/members');
   } catch (e) {
     const { error } = e as StrapiError;
     Notify.create({
@@ -60,7 +61,7 @@ const login = async () => {
 
 <template>
   <q-page
-    class="window-height window-width row justify-center items-center bg-grey-2"
+    class="window-height window-width row justify-center items-center bg-grey-3"
   >
     <div class="column">
       <div class="row">
