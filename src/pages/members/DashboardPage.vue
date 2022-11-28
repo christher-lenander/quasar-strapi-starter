@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { strapi } from 'boot/strapi';
 import { useRouter } from 'vue-router';
+import { Notify } from 'quasar';
 
 const router = useRouter();
 
@@ -12,7 +13,7 @@ const logout = () => {
 const notImplemented = () => {
   Notify.create({
     message: 'Not implemented yet',
-    color: 'warning',
+    color: 'bg-grey-10',
     position: 'top',
   });
 };
