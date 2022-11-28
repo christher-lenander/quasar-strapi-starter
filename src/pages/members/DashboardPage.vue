@@ -1,5 +1,3 @@
 <template>
-  <q-page class="window-height window-width row justify-center items-center">
-    Member Dashboard
-  </q-page>
+  <q-page class="row items-center justify-evenly"> Member Dashboard </q-page>
 </template>

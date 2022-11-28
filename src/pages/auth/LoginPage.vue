@@ -62,7 +62,6 @@ const login = async () => {
   <q-page
     class="window-height window-width row justify-center items-center bg-grey-2"
   >
-    {{ strapi.getToken() }}
     <div class="column">
       <div class="row">
         <q-card square class="q-pa-md q-ma-none no-shadow" style="width: 320px">
