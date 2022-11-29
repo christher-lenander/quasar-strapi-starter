@@ -27,8 +27,6 @@ const v$ = useVuelidate(rules, state);
 const login = async () => {
   const isValid = await v$.value.$validate();
 
-  console.log('test', isValid);
-
   if (!isValid) {
     Notify.create({
       message: 'Please fill in all fields',
