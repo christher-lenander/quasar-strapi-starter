@@ -1,7 +1,52 @@
-// This is just an example,
-// so you can safely delete all default props below
-
 export default {
-  failed: 'Action failed',
-  success: 'Action was successful'
+  loginPage: {
+    title: 'Sign in',
+  },
+  createAccountPage: {
+    title: 'Create new account',
+  },
+  forgotPasswordPage: {
+    title: 'Forgot password',
+  },
+  resetPasswordPage: {
+    title: 'Reset password',
+  },
+  memberDashboardPage: {
+    title: 'Member Dashboard',
+    links: {
+      changePassword: 'Change password',
+      logout: 'Logout',
+      editProfile: 'Edit profile',
+    },
+  },
+  formFields: {
+    username: {
+      label: 'Username',
+      placeholder: 'Username',
+    },
+    email: {
+      label: 'E-mail',
+      placeholder: 'E-mail',
+    },
+    password: {
+      label: 'Password',
+      placeholder: 'Password',
+    },
+    passwordConfirmation: {
+      label: 'Password Confirmation',
+      placeholder: 'Password Confirmation',
+    },
+  },
+  formButtons: {
+    login: 'Sign in',
+    logout: 'Logout',
+    createAccount: 'Create Account',
+    reset: 'Reset',
+    submit: 'Submit',
+  },
+  links: {
+    login: 'Sign in',
+    forgotPassword: 'Forgot password?',
+    createAccount: 'Create account',
+  },
 };
