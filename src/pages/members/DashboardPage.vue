@@ -26,7 +26,9 @@ const notImplemented = () => {
       <div class="row">
         <q-card square class="q-pa-md q-ma-none no-shadow" style="width: 320px">
           <q-card-section class="q-mt-xl q-mb-md">
-            <p class="text-weight-bolder text-grey-6">Member Dashboard</p>
+            <p class="text-weight-bolder text-grey-6">
+              {{ $t('memberDashboardPage.title') }}
+            </p>
           </q-card-section>
           <q-card-actions>
             <div class="row full-width">
@@ -36,7 +38,7 @@ const notImplemented = () => {
                   size="md"
                   flat
                   class="full-width text-white bg-custom-dark-blue"
-                  label="Edit Username and Email"
+                  :label="$t('memberDashboardPage.links.editProfile')"
                   @click="notImplemented"
                 />
                 <q-btn
@@ -44,7 +46,7 @@ const notImplemented = () => {
                   size="md"
                   flat
                   class="full-width text-white bg-custom-dark-blue"
-                  label="Change Password"
+                  :label="$t('memberDashboardPage.links.changePassword')"
                   @click="notImplemented"
                 />
                 <q-btn
@@ -52,7 +54,7 @@ const notImplemented = () => {
                   size="md"
                   flat
                   class="full-width text-white bg-custom-dark-blue"
-                  label="Logout"
+                  :label="$t('memberDashboardPage.links.logout')"
                   @click="logout()"
                 />
               </div>

@@ -13,6 +13,11 @@ export default {
   },
   memberDashboardPage: {
     title: 'Medlemssida',
+    links: {
+      changePassword: 'Ändra lösenord',
+      logout: 'Logga ut',
+      editProfile: 'Redigera profil',
+    },
   },
   formFields: {
     username: {
