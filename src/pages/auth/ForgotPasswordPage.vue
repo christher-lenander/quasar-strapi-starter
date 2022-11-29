@@ -1,12 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-// import { useRouter } from 'vue-router';
 import { Notify } from 'quasar';
 
 import { strapi } from 'src/boot/strapi';
 import { StrapiError } from 'strapi-sdk-js';
-
-// const router = useRouter();
 
 const email = ref('');
 
@@ -42,7 +39,7 @@ const forgotPassword = async () => {
             </p>
           </q-card-section>
           <q-card-section>
-            <q-form class="q-gutter-md" @submit="forgotPassword">
+            <div class="q-gutter-md">
               <q-input
                 dense
                 square
@@ -57,7 +54,7 @@ const forgotPassword = async () => {
                   <q-icon name="email" />
                 </template>
               </q-input>
-            </q-form>
+            </div>
           </q-card-section>
           <q-card-actions>
             <div class="row full-width">
@@ -68,7 +65,7 @@ const forgotPassword = async () => {
                   flat
                   class="full-width text-white bg-custom-dark-blue"
                   :label="$t('formButtons.submit')"
-                  type="submit"
+                  @click="forgotPassword"
                 />
               </div>
               <div class="col-6">

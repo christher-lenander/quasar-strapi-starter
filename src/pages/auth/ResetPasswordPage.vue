@@ -25,6 +25,7 @@ const resetPassword = async () => {
       color: 'positive',
       position: 'top',
     });
+    router.push({ name: 'member-dashboard' });
   } catch (e) {
     const { error } = e as StrapiError;
     Notify.create({
