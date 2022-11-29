@@ -13,13 +13,13 @@ const forgotPassword = async () => {
     await strapi.forgotPassword({ email: email.value });
     Notify.create({
       type: 'positive',
-      message: i18n.t('forgotPasswordPage.success') as string,
+      message: i18n.t('forgotPasswordPage.messages.success') as string,
       position: 'top',
     });
   } catch (e) {
     Notify.create({
       type: 'negative',
-      message: i18n.t('forgotPasswordPage.error') as string,
+      message: i18n.t('forgotPasswordPage.messages.error') as string,
       position: 'top',
     });
   }

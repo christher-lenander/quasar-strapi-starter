@@ -21,14 +21,14 @@ const resetPassword = async () => {
       passwordConfirmation: passwordConfirmation.value,
     });
     Notify.create({
-      message: i18n.t('resetPasswordPage.success') as string,
+      message: i18n.t('resetPasswordPage.messages.success') as string,
       color: 'positive',
       position: 'top',
     });
     router.push({ name: 'member-dashboard' });
   } catch (e) {
     Notify.create({
-      message: i18n.t('resetPasswordPage.error') as string,
+      message: i18n.t('resetPasswordPage.messages.error') as string,
       color: 'negative',
       position: 'top',
     });
