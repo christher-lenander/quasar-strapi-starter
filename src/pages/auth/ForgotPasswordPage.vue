@@ -10,7 +10,7 @@ import { StrapiError } from 'strapi-sdk-js';
 
 const email = ref('');
 
-const resetPassword = async () => {
+const forgotPassword = async () => {
   try {
     await strapi.forgotPassword({ email: email.value });
     Notify.create({
@@ -37,10 +37,12 @@ const resetPassword = async () => {
       <div class="row">
         <q-card square class="q-pa-md q-ma-none no-shadow" style="width: 320px">
           <q-card-section class="q-mt-xl q-mb-md">
-            <p class="text-weight-bolder text-grey-6">Forgot password</p>
+            <p class="text-weight-bolder text-grey-6">
+              {{ $t('forgotPasswordPage.title') }}
+            </p>
           </q-card-section>
           <q-card-section>
-            <q-form class="q-gutter-md" @submit="resetPassword">
+            <q-form class="q-gutter-md" @submit="forgotPassword">
               <q-input
                 dense
                 square
@@ -48,7 +50,8 @@ const resetPassword = async () => {
                 clearable
                 v-model="email"
                 type="email"
-                label="Email"
+                :label="$t('formFields.email.label')"
+                :placeholder="$t('formFields.email.label')"
               >
                 <template v-slot:prepend>
                   <q-icon name="email" />
@@ -64,7 +67,7 @@ const resetPassword = async () => {
                   size="md"
                   flat
                   class="full-width text-white bg-custom-dark-blue"
-                  label="Submit"
+                  :label="$t('formButtons.submit')"
                   type="submit"
                 />
               </div>
@@ -74,13 +77,13 @@ const resetPassword = async () => {
                     :to="{ name: 'login' }"
                     style="text-decoration: none"
                     class="text-grey-6 text-caption"
-                    >Sign in</router-link
+                    >{{ $t('links.login') }}</router-link
                   ><br />
                   <router-link
                     :to="{ name: 'create-account' }"
                     style="text-decoration: none"
                     class="text-grey-6 text-caption"
-                    >Create account</router-link
+                    >{{ $t('links.createAccount') }}</router-link
                   >
                 </div>
               </div>

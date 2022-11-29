@@ -64,7 +64,9 @@ const register = async () => {
       <div class="row">
         <q-card square class="q-pa-md q-ma-none no-shadow" style="width: 320px">
           <q-card-section class="q-mt-xl q-mb-md">
-            <p class="text-weight-bolder text-grey-6">Create new account</p>
+            <p class="text-weight-bolder text-grey-6">
+              {{ $t('createAccountPage.title') }}
+            </p>
           </q-card-section>
           <q-card-section>
             <div class="q-gutter-md">
@@ -78,7 +80,8 @@ const register = async () => {
                 :error="v$.email.$error"
                 v-model="state.email"
                 type="email"
-                label="Email"
+                :label="$t('formFields.email.label')"
+                :placeholder="$t('formFields.email.placeholder')"
               >
                 <template v-slot:prepend>
                   <q-icon name="email" />
@@ -94,7 +97,8 @@ const register = async () => {
                 :error="v$.password.$error"
                 v-model="state.password"
                 type="password"
-                label="Password"
+                :label="$t('formFields.password.label')"
+                :placeholder="$t('formFields.password.placeholder')"
               >
                 <template v-slot:prepend>
                   <q-icon name="lock" />
@@ -110,7 +114,7 @@ const register = async () => {
                   flat
                   size="md"
                   class="full-width text-white bg-custom-dark-blue"
-                  label="Sign Up"
+                  :label="$t('formButtons.createAccount')"
                   @click="register"
                 />
               </div>
@@ -120,13 +124,13 @@ const register = async () => {
                     :to="{ name: 'login' }"
                     style="text-decoration: none"
                     class="text-grey-6 text-caption"
-                    >Sign in</router-link
+                    >{{ $t('links.login') }}</router-link
                   ><br />
                   <router-link
                     :to="{ name: 'forgot-password' }"
                     style="text-decoration: none"
                     class="text-grey-6 text-caption"
-                    >Forgot password</router-link
+                    >{{ $t('links.forgotPassword') }}</router-link
                   >
                 </div>
               </div>

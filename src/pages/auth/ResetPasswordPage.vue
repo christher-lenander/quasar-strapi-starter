@@ -44,7 +44,9 @@ const resetPassword = async () => {
       <div class="row">
         <q-card square class="q-pa-md q-ma-none no-shadow" style="width: 320px">
           <q-card-section class="q-mt-xl q-mb-md">
-            <p class="text-weight-bolder text-grey-6">Reset password</p>
+            <p class="text-weight-bolder text-grey-6">
+              {{ $t('resetPasswordPage.title') }}
+            </p>
           </q-card-section>
           <q-card-section>
             <q-form class="q-gutter-md">
@@ -55,7 +57,8 @@ const resetPassword = async () => {
                 clearable
                 v-model="password"
                 type="password"
-                label="Password"
+                :label="$t('formFields.password.label')"
+                :placeholder="$t('formFields.password.placeholder')"
               >
                 <template v-slot:prepend>
                   <q-icon name="lock" />
@@ -68,7 +71,8 @@ const resetPassword = async () => {
                 clearable
                 v-model="passwordConfirmation"
                 type="password"
-                label="Password Confirmation"
+                :label="$t('formFields.passwordConfirmation.label')"
+                :placeholder="$t('formFields.passwordConfirmation.placeholder')"
               >
                 <template v-slot:prepend>
                   <q-icon name="lock" />
@@ -84,7 +88,7 @@ const resetPassword = async () => {
                   flat
                   size="md"
                   class="full-width text-white bg-custom-dark-blue"
-                  label="Submit"
+                  :label="$t('formButtons.reset')"
                   @click="resetPassword"
                 />
               </div>
