@@ -1,6 +1,6 @@
 export default {
   loginPage: {
-    title: 'Sign in',
+    title: 'Sign in to your account',
   },
   createAccountPage: {
     title: 'Create new account',
