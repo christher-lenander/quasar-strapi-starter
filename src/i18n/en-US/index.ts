@@ -63,6 +63,11 @@ export default {
     createAccount: 'Create account',
   },
   validation: {
-    formInvalidMessage: 'Fill in all fields.',
+    formInvalidMessage: 'Please fill in all fields.',
+  },
+  strapiErrors: {
+    login: {
+      ValidationError: 'Invalid username or password',
+    },
   },
 };

@@ -62,4 +62,12 @@ export default {
     forgotPassword: 'Glömt lösenordet?',
     createAccount: 'Skapa konto',
   },
+  validation: {
+    formInvalidMessage: 'Fyll i alla fält.',
+  },
+  strapiErrors: {
+    login: {
+      ValidationError: 'Ogiltigt användarnamn eller lösenord',
+    },
+  },
 };
