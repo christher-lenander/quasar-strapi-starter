@@ -4,12 +4,25 @@ export default {
   },
   createAccountPage: {
     title: 'Skapa konto',
+    messages: {
+      success: 'Ditt konto har skapats.',
+      error: 'Ett fel uppstod när ditt konto skulle skapas.',
+    },
   },
   forgotPasswordPage: {
     title: 'Glömt lösenord',
+    messages: {
+      success:
+        'Ett e-postmeddelande har skickats till dig med instruktioner om hur du återställer ditt lösenord.',
+      error: 'Ett fel uppstod när vi försökte skicka e-postmeddelandet.',
+    },
   },
   resetPasswordPage: {
     title: 'Återställ lösenord',
+    messages: {
+      success: 'Ditt lösenord har återställts.',
+      error: 'Ett fel uppstod när vi försökte återställa ditt lösenord.',
+    },
   },
   memberDashboardPage: {
     title: 'Medlemssida',

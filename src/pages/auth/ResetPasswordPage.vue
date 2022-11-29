@@ -2,10 +2,10 @@
 import { ref } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { Notify } from 'quasar';
-
+import { useI18n } from 'vue-i18n';
 import { strapi } from 'src/boot/strapi';
-import { StrapiError } from 'strapi-sdk-js';
 
+const i18n = useI18n();
 const route = useRoute();
 const router = useRouter();
 
@@ -21,15 +21,14 @@ const resetPassword = async () => {
       passwordConfirmation: passwordConfirmation.value,
     });
     Notify.create({
-      message: 'Password reset successfully',
+      message: i18n.t('resetPasswordPage.success') as string,
       color: 'positive',
       position: 'top',
     });
     router.push({ name: 'member-dashboard' });
   } catch (e) {
-    const { error } = e as StrapiError;
     Notify.create({
-      message: e.message || error.message,
+      message: i18n.t('resetPasswordPage.error') as string,
       color: 'negative',
       position: 'top',
     });

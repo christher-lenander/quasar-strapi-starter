@@ -4,12 +4,25 @@ export default {
   },
   createAccountPage: {
     title: 'Create new account',
+    messages: {
+      success: 'Your account has been created.',
+      error: 'An error occurred while creating your account.',
+    },
   },
   forgotPasswordPage: {
     title: 'Forgot password',
+    messages: {
+      success:
+        'An email has been sent to you with instructions on how to reset your password.',
+      error: 'An error occurred while trying to send the email.',
+    },
   },
   resetPasswordPage: {
     title: 'Reset password',
+    messages: {
+      success: 'Your password has been reset.',
+      error: 'An error occurred while trying to reset your password.',
+    },
   },
   memberDashboardPage: {
     title: 'Member Dashboard',
@@ -48,5 +61,8 @@ export default {
     login: 'Sign in',
     forgotPassword: 'Forgot password?',
     createAccount: 'Create account',
+  },
+  validation: {
+    formInvalidMessage: 'Fill in all fields.',
   },
 };

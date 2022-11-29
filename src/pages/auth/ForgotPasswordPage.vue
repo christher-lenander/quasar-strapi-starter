@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { Notify } from 'quasar';
-
+import { useI18n } from 'vue-i18n';
 import { strapi } from 'src/boot/strapi';
-import { StrapiError } from 'strapi-sdk-js';
+
+const i18n = useI18n();
 
 const email = ref('');
 
@@ -12,14 +13,13 @@ const forgotPassword = async () => {
     await strapi.forgotPassword({ email: email.value });
     Notify.create({
       type: 'positive',
-      message: 'Check your email for a link to reset your password.',
+      message: i18n.t('forgotPasswordPage.success') as string,
       position: 'top',
     });
   } catch (e) {
-    const { error } = e as StrapiError;
     Notify.create({
       type: 'negative',
-      message: e.message || error.message,
+      message: i18n.t('forgotPasswordPage.error') as string,
       position: 'top',
     });
   }

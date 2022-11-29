@@ -5,11 +5,12 @@ import { useRouter } from 'vue-router';
 import { Notify } from 'quasar';
 
 import { strapi } from 'src/boot/strapi';
-import { StrapiError } from 'strapi-sdk-js';
 
 import { useVuelidate } from '@vuelidate/core';
 import { required } from '@vuelidate/validators';
+import { useI18n } from 'vue-i18n';
 
+const i18n = useI18n();
 const router = useRouter();
 
 const state = reactive({
@@ -29,7 +30,7 @@ const register = async () => {
 
   if (!isValid) {
     Notify.create({
-      message: 'Please fill in all fields',
+      message: i18n.t('validation.formInvalidMessage') as string,
       color: 'negative',
       position: 'top',
     });
@@ -43,11 +44,11 @@ const register = async () => {
       email: state.email,
       password: state.password,
     });
+
     router.push({ name: 'member-dashboard' });
   } catch (e) {
-    const { error } = e as StrapiError;
     Notify.create({
-      message: e.message || error.message,
+      message: i18n.t('createAccountPage.error') as string,
       color: 'negative',
       icon: 'warning',
       position: 'top',
