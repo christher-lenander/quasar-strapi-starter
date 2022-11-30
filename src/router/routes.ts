@@ -6,7 +6,7 @@ const routes: RouteRecordRaw[] = [
     redirect: '/auth',
   },
   {
-    path: '/members',
+    path: '/member',
     component: () => import('layouts/BlankLayout.vue'),
     meta: { requiresAuth: true },
     children: [
@@ -14,6 +14,11 @@ const routes: RouteRecordRaw[] = [
         path: '',
         name: 'member-dashboard',
         component: () => import('src/pages/members/MemberDashboardPage.vue'),
+      },
+      {
+        path: 'change-password',
+        name: 'change-password',
+        component: () => import('src/pages/members/ChangePasswordPage.vue'),
       },
     ],
   },

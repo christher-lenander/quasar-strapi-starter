@@ -24,6 +24,16 @@ export default {
       error: 'Ett fel uppstod när vi försökte återställa ditt lösenord.',
     },
   },
+  changePasswordPage: {
+    title: 'Ändra lösenord',
+    links: {
+      changePassword: 'Ändra lösenord',
+    },
+    messages: {
+      success: 'Ditt lösenord har ändrats.',
+      error: 'Ett fel uppstod när vi försökte ändra ditt lösenord.',
+    },
+  },
   memberDashboardPage: {
     title: 'Medlemssida',
     links: {
@@ -61,6 +71,8 @@ export default {
     login: 'Logga in',
     forgotPassword: 'Glömt lösenordet?',
     createAccount: 'Skapa konto',
+    changePassword: 'Ändra lösenord',
+    back: 'Tillbaka',
   },
   validation: {
     formInvalidMessage: 'Fyll i alla fält.',

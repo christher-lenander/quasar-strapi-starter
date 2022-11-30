@@ -46,7 +46,7 @@ const login = async () => {
 
     v$.value.$reset();
 
-    router.push((route.query.redirect as string) || '/members');
+    router.push((route.query.redirect as string) || '/member');
   } catch (e) {
     const { error } = e as StrapiError;
     Notify.create({

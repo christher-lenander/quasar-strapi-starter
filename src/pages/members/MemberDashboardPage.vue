@@ -50,7 +50,7 @@ const notImplemented = () => {
                   flat
                   class="full-width text-white bg-custom-dark-blue"
                   :label="$t('memberDashboardPage.links.changePassword')"
-                  @click="notImplemented"
+                  :to="{ name: 'change-password' }"
                 />
                 <q-btn
                   rounded

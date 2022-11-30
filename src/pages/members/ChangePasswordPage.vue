@@ -5,29 +5,47 @@ import { Notify } from 'quasar';
 import { useI18n } from 'vue-i18n';
 import { strapi } from 'src/boot/strapi';
 import { useVuelidate } from '@vuelidate/core';
-import { required } from '@vuelidate/validators';
+import { required, sameAs } from '@vuelidate/validators';
 
 const i18n = useI18n();
 const router = useRouter();
 
 const state = reactive({
   currentPassword: '',
-  password: '',
+  newPassword: '',
   passwordConfirmation: '',
 });
 
 const rules = {
   currentPassword: { required },
-  password: { required },
-  passwordConfirmation: { required },
+  newPassword: { required },
+  passwordConfirmation: {
+    required,
+    sameAsNewPassword: sameAs(state.newPassword as string),
+  },
 };
 
 const v$ = useVuelidate(rules, state);
 
-const resetPassword = async () => {
+const changePassword = async () => {
+  // const isValid = await v$.value.$validate();
+
+  // if (!isValid) {
+  //   // Notify.create({
+  //   //   message: i18n.t('validation.formInvalidMessage') as string,
+  //   //   color: 'negative',
+  //   //   position: 'top',
+  //   // });
+  //   return;
+  // }
+
   try {
     await strapi.request('POST', '/auth/change-password', {
-      data: state,
+      data: {
+        currentPassword: state.currentPassword,
+        password: state.newPassword,
+        passwordConfirmation: state.passwordConfirmation,
+      },
     });
 
     Notify.create({
@@ -55,20 +73,19 @@ const resetPassword = async () => {
         <q-card square class="q-pa-md q-ma-none no-shadow" style="width: 320px">
           <q-card-section class="q-mt-xl q-mb-md">
             <p class="text-weight-bolder text-grey-6">
-              {{ $t('resetPasswordPage.title') }}
+              {{ $t('changePasswordPage.title') }}
             </p>
           </q-card-section>
           <q-card-section>
-            <q-form class="q-gutter-md">
+            <div class="q-gutter-md">
               <q-input
                 dense
                 square
                 filled
-                clearable
-                v-model="state.password"
+                v-model="state.currentPassword"
                 type="password"
-                :label="$t('formFields.password.label')"
-                :placeholder="$t('formFields.password.placeholder')"
+                :label="$t('formFields.currentPassword.label')"
+                :placeholder="$t('formFields.currentPassword.placeholder')"
               >
                 <template v-slot:prepend>
                   <q-icon name="lock" />
@@ -78,7 +95,19 @@ const resetPassword = async () => {
                 dense
                 square
                 filled
-                clearable
+                v-model="state.newPassword"
+                type="password"
+                :label="$t('formFields.newPassword.label')"
+                :placeholder="$t('formFields.newPassword.placeholder')"
+              >
+                <template v-slot:prepend>
+                  <q-icon name="lock" />
+                </template>
+              </q-input>
+              <q-input
+                dense
+                square
+                filled
                 v-model="state.passwordConfirmation"
                 type="password"
                 :label="$t('formFields.passwordConfirmation.label')"
@@ -88,7 +117,7 @@ const resetPassword = async () => {
                   <q-icon name="lock" />
                 </template>
               </q-input>
-            </q-form>
+            </div>
           </q-card-section>
           <q-card-actions>
             <div class="row full-width">
@@ -98,9 +127,19 @@ const resetPassword = async () => {
                   flat
                   size="md"
                   class="full-width text-white bg-blue-grey-9"
-                  :label="$t('formButtons.reset')"
-                  @click="resetPassword"
+                  :label="$t('formButtons.submit')"
+                  @click="changePassword"
                 />
+              </div>
+              <div class="col-6">
+                <div class="text-no-wrap text-caption text-right">
+                  <router-link
+                    :to="{ name: 'member-dashboard' }"
+                    style="text-decoration: none"
+                    class="text-grey-6 text-caption"
+                    >{{ $t('links.back') }}</router-link
+                  >
+                </div>
               </div>
             </div>
           </q-card-actions>
@@ -112,6 +151,7 @@ const resetPassword = async () => {
             </p>
           </q-card-section>
         </q-card>
+        <pre>{{ v$.passwordConfirmation }}</pre>
       </div>
     </div>
   </q-page>

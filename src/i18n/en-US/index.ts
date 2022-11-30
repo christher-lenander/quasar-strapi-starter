@@ -24,6 +24,16 @@ export default {
       error: 'An error occurred while trying to reset your password.',
     },
   },
+  changePasswordPage: {
+    title: 'Change password',
+    links: {
+      changePassword: 'Change password',
+    },
+    messages: {
+      success: 'Your password has been changed.',
+      error: 'An error occurred while trying to change your password.',
+    },
+  },
   memberDashboardPage: {
     title: 'Member Dashboard',
     links: {
@@ -49,6 +59,14 @@ export default {
       label: 'Password Confirmation',
       placeholder: 'Password Confirmation',
     },
+    newPassword: {
+      label: 'New Password',
+      placeholder: 'New Password',
+    },
+    currentPassword: {
+      label: 'Current Password',
+      placeholder: 'Current Password',
+    },
   },
   formButtons: {
     login: 'Sign in',
@@ -56,11 +74,13 @@ export default {
     createAccount: 'Create Account',
     reset: 'Reset',
     submit: 'Submit',
+    change: 'Change',
   },
   links: {
     login: 'Sign in',
     forgotPassword: 'Forgot password?',
     createAccount: 'Create account',
+    back: 'Back',
   },
   validation: {
     formInvalidMessage: 'Please fill in all fields.',
