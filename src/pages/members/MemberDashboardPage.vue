@@ -15,7 +15,7 @@ const logout = () => {
 const notImplemented = () => {
   Notify.create({
     message: i18n.t('messages.notImplemented') as string,
-    color: 'blue-grey-9',
+    color: 'blue-7',
     icon: 'info',
     position: 'top',
   });
