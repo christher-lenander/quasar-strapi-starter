@@ -13,7 +13,7 @@ const routes: RouteRecordRaw[] = [
       {
         path: '',
         name: 'member-dashboard',
-        component: () => import('pages/members/DashboardPage.vue'),
+        component: () => import('src/pages/members/MemberDashboardPage.vue'),
       },
     ],
   },
