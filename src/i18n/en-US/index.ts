@@ -71,4 +71,5 @@ export default {
       UnknownError: 'Unknown error',
     },
   },
+  notImplemented: 'Not implemented',
 };
