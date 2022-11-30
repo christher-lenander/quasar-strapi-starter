@@ -68,6 +68,7 @@ export default {
   strapiErrors: {
     login: {
       ValidationError: 'Invalid username or password',
+      UnknownError: 'Unknown error',
     },
   },
 };

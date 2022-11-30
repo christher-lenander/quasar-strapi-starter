@@ -68,6 +68,7 @@ export default {
   strapiErrors: {
     login: {
       ValidationError: 'Ogiltigt användarnamn eller lösenord',
+      UnknownError: 'Okänt fel',
     },
   },
 };
