@@ -2,7 +2,9 @@
 import { strapi } from 'boot/strapi';
 import { useRouter } from 'vue-router';
 import { Notify } from 'quasar';
+import { useI18n } from 'vue-i18n';
 
+const i18n = useI18n();
 const router = useRouter();
 
 const logout = () => {
@@ -12,7 +14,7 @@ const logout = () => {
 
 const notImplemented = () => {
   Notify.create({
-    message: 'Not implemented yet',
+    message: i18n.t('messages.notImplemented') as string,
     color: 'bg-grey-10',
     position: 'top',
   });

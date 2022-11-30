@@ -71,5 +71,7 @@ export default {
       UnknownError: 'Okänt fel.',
     },
   },
-  notImplemented: 'Inte implementerat ännu.',
+  messages: {
+    notImplemented: 'Inte implementerat.',
+  },
 };

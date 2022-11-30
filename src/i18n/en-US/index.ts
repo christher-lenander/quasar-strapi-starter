@@ -71,5 +71,7 @@ export default {
       UnknownError: 'Unknown error',
     },
   },
-  notImplemented: 'Not implemented',
+  messages: {
+    notImplemented: 'Not implemented',
+  },
 };
