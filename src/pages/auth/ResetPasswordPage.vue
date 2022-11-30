@@ -87,7 +87,7 @@ const resetPassword = async () => {
                   rounded
                   flat
                   size="md"
-                  class="full-width text-white bg-custom-dark-blue"
+                  class="full-width text-white bg-blue-grey-9"
                   :label="$t('formButtons.reset')"
                   @click="resetPassword"
                 />

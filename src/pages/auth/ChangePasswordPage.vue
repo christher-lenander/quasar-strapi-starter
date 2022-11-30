@@ -1,34 +1,44 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import { useRouter, useRoute } from 'vue-router';
+import { reactive } from 'vue';
+import { useRouter } from 'vue-router';
 import { Notify } from 'quasar';
 import { useI18n } from 'vue-i18n';
 import { strapi } from 'src/boot/strapi';
+import { useVuelidate } from '@vuelidate/core';
+import { required } from '@vuelidate/validators';
 
 const i18n = useI18n();
-const route = useRoute();
 const router = useRouter();
 
-const password = ref('');
-const passwordConfirmation = ref('');
-const code = route.query.code as string;
+const state = reactive({
+  currentPassword: '',
+  password: '',
+  passwordConfirmation: '',
+});
+
+const rules = {
+  currentPassword: { required },
+  password: { required },
+  passwordConfirmation: { required },
+};
+
+const v$ = useVuelidate(rules, state);
 
 const resetPassword = async () => {
   try {
-    await strapi.resetPassword({
-      code: code,
-      password: password.value,
-      passwordConfirmation: passwordConfirmation.value,
+    await strapi.request('POST', '/auth/change-password', {
+      data: state,
     });
+
     Notify.create({
-      message: i18n.t('resetPasswordPage.messages.success') as string,
+      message: i18n.t('changePasswordPage.messages.success') as string,
       color: 'positive',
       position: 'top',
     });
     router.push({ name: 'member-dashboard' });
   } catch (e) {
     Notify.create({
-      message: i18n.t('resetPasswordPage.messages.error') as string,
+      message: i18n.t('changePasswordPage.messages.error') as string,
       color: 'negative',
       position: 'top',
     });
@@ -55,7 +65,7 @@ const resetPassword = async () => {
                 square
                 filled
                 clearable
-                v-model="password"
+                v-model="state.password"
                 type="password"
                 :label="$t('formFields.password.label')"
                 :placeholder="$t('formFields.password.placeholder')"
@@ -69,7 +79,7 @@ const resetPassword = async () => {
                 square
                 filled
                 clearable
-                v-model="passwordConfirmation"
+                v-model="state.passwordConfirmation"
                 type="password"
                 :label="$t('formFields.passwordConfirmation.label')"
                 :placeholder="$t('formFields.passwordConfirmation.placeholder')"
@@ -87,7 +97,7 @@ const resetPassword = async () => {
                   rounded
                   flat
                   size="md"
-                  class="full-width text-white bg-custom-dark-blue"
+                  class="full-width text-white bg-blue-grey-9"
                   :label="$t('formButtons.reset')"
                   @click="resetPassword"
                 />

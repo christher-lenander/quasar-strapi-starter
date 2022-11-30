@@ -116,7 +116,7 @@ const login = async () => {
                   rounded
                   size="md"
                   flat
-                  class="full-width text-white bg-custom-dark-blue"
+                  class="full-width text-white bg-blue-grey-9"
                   :label="$t('formButtons.login')"
                   @click="login()"
                 />
