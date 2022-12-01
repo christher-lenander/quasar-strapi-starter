@@ -35,7 +35,9 @@ export default route(function (/* { store, ssrContext } */) {
     history: createHistory(process.env.VUE_ROUTER_BASE),
   });
 
-  Router.beforeEach((to, from, next) => {
+  Router.beforeEach(async (to, from, next) => {
+    await strapi.fetchUser();
+
     const publicPages = [
       'login',
       'create-account',
@@ -43,14 +45,11 @@ export default route(function (/* { store, ssrContext } */) {
       'reset-password',
     ];
 
-    if (strapi.getToken() && publicPages.includes(to.name as string)) {
+    if (strapi.user && publicPages.includes(to.name as string)) {
       next({ name: 'member-dashboard' });
     }
 
-    if (
-      to.matched.some((record) => record.meta.requiresAuth) &&
-      !strapi.getToken()
-    ) {
+    if (to.matched.some((record) => record.meta.requiresAuth) && !strapi.user) {
       next({
         name: 'login',
         query: { redirect: to.fullPath },

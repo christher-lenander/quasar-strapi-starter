@@ -1,51 +1,79 @@
 <script setup lang="ts">
-import { reactive } from 'vue';
+import { reactive, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { Notify } from 'quasar';
 import { useI18n } from 'vue-i18n';
 import { strapi } from 'src/boot/strapi';
 import { useVuelidate } from '@vuelidate/core';
-import { required, sameAs } from '@vuelidate/validators';
+import { required, sameAs, minLength, helpers } from '@vuelidate/validators';
 
 const i18n = useI18n();
 const router = useRouter();
 
+i18n.locale.value = 'sv-SE';
+
 const state = reactive({
   currentPassword: '',
-  newPassword: '',
+  password: '',
   passwordConfirmation: '',
 });
 
-const rules = {
-  currentPassword: { required },
-  newPassword: { required },
-  passwordConfirmation: {
-    required,
-    sameAsNewPassword: sameAs(state.newPassword as string),
-  },
-};
+const rules = computed(() => {
+  return {
+    currentPassword: {
+      required: helpers.withMessage(
+        () => i18n.t('vuelidate.required'),
+        required
+      ),
+    },
+    password: {
+      required: helpers.withMessage(
+        () => i18n.t('vuelidate.required'),
+        required
+      ),
+      minLength: helpers.withMessage(
+        ({ $params }) => i18n.t('vuelidate.minLength', [$params.min]),
+        minLength(6)
+      ),
+    },
+    passwordConfirmation: {
+      required: helpers.withMessage(
+        () => i18n.t('vuelidate.required'),
+        required
+      ),
+      minLength: helpers.withMessage(
+        ({ $params }) => i18n.t('vuelidate.minLength', [$params.min]),
+        minLength(6)
+      ),
+      sameAsPassword: helpers.withMessage(
+        ({ $params }) => i18n.t('vuelidate.sameAs', [$params.otherName]),
+        sameAs(state.password, i18n.t('formFields.password.label'))
+      ),
+    },
+  };
+});
 
 const v$ = useVuelidate(rules, state);
 
-const changePassword = async () => {
-  // const isValid = await v$.value.$validate();
+const error = (field: string) => {
+  if (!field) {
+    return;
+  }
 
-  // if (!isValid) {
-  //   // Notify.create({
-  //   //   message: i18n.t('validation.formInvalidMessage') as string,
-  //   //   color: 'negative',
-  //   //   position: 'top',
-  //   // });
-  //   return;
-  // }
+  return v$.value[field].$error ? v$.value[field].$errors[0].$message : '';
+};
+
+const changePassword = async () => {
+  v$.value.$touch();
+  const isValid = await v$.value.$validate();
+
+  if (!isValid) {
+    return;
+  }
 
   try {
     await strapi.request('POST', '/auth/change-password', {
-      data: {
-        currentPassword: state.currentPassword,
-        password: state.newPassword,
-        passwordConfirmation: state.passwordConfirmation,
-      },
+      data: state,
     });
 
     Notify.create({
@@ -82,10 +110,15 @@ const changePassword = async () => {
                 dense
                 square
                 filled
+                hide-bottom-space
                 v-model="state.currentPassword"
                 type="password"
+                @focus="v$.currentPassword.$reset()"
+                @blur="v$.currentPassword.$touch()"
                 :label="$t('formFields.currentPassword.label')"
                 :placeholder="$t('formFields.currentPassword.placeholder')"
+                :error="v$.currentPassword.$error"
+                :error-message="error('currentPassword')"
               >
                 <template v-slot:prepend>
                   <q-icon name="lock" />
@@ -95,10 +128,15 @@ const changePassword = async () => {
                 dense
                 square
                 filled
-                v-model="state.newPassword"
+                hide-bottom-space
+                v-model="state.password"
                 type="password"
-                :label="$t('formFields.newPassword.label')"
-                :placeholder="$t('formFields.newPassword.placeholder')"
+                @focus="v$.password.$reset()"
+                @blur="v$.password.$touch()"
+                :label="$t('formFields.password.label')"
+                :placeholder="$t('formFields.password.placeholder')"
+                :error="v$.password.$error"
+                :error-message="error('password')"
               >
                 <template v-slot:prepend>
                   <q-icon name="lock" />
@@ -108,10 +146,15 @@ const changePassword = async () => {
                 dense
                 square
                 filled
+                hide-bottom-space
                 v-model="state.passwordConfirmation"
                 type="password"
+                @focus="v$.passwordConfirmation.$reset()"
+                @blur="v$.passwordConfirmation.$touch()"
                 :label="$t('formFields.passwordConfirmation.label')"
                 :placeholder="$t('formFields.passwordConfirmation.placeholder')"
+                :error="v$.passwordConfirmation.$error"
+                :error-message="error('passwordConfirmation')"
               >
                 <template v-slot:prepend>
                   <q-icon name="lock" />
@@ -151,7 +194,6 @@ const changePassword = async () => {
             </p>
           </q-card-section>
         </q-card>
-        <pre>{{ v$.passwordConfirmation }}</pre>
       </div>
     </div>
   </q-page>

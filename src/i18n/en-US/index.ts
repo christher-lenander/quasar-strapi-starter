@@ -94,4 +94,7 @@ export default {
   messages: {
     notImplemented: 'Not implemented',
   },
+  vuelidate: {
+    minLength: 'Password must be at least {0} characters long',
+  },
 };

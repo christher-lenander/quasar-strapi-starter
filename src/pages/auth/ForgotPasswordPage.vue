@@ -88,8 +88,9 @@ const forgotPassword = async () => {
           </q-card-actions>
           <q-card-section>
             <p class="text-caption text-weight-light text-grey">
-              If a user with the email exists, a link to reset the password will
-              be sent to the email.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce
+              semper laoreet placerat. Nullam semper auctor justo, rutrum
+              posuere odio vulputate nec.
             </p>
           </q-card-section>
         </q-card>

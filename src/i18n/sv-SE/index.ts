@@ -51,6 +51,14 @@ export default {
       label: 'E-postadress',
       placeholder: 'E-postadress',
     },
+    newPassword: {
+      label: 'Nytt lösenord',
+      placeholder: 'Nytt lösenord',
+    },
+    currentPassword: {
+      label: 'Nuvarande lösenord',
+      placeholder: 'Nuvarande lösenord',
+    },
     password: {
       label: 'Lösenord',
       placeholder: 'Lösenord',
@@ -85,5 +93,10 @@ export default {
   },
   messages: {
     notImplemented: 'Inte implementerat.',
+  },
+  vuelidate: {
+    required: 'Fältet är obligatoriskt.',
+    minLength: 'Måste minst vara {0} tecken långt.',
+    sameAs: 'Måste vara lika som {0}.',
   },
 };
